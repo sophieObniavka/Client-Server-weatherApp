@@ -16,11 +16,13 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception{
         window = stage;
         Parent root = FXMLLoader.load(getClass().getResource("scenes/sample.fxml"));
-        stage.setHeight(300);
-        stage.setWidth(200);
+        stage.setHeight(831);
+        stage.setWidth(1134);
+        stage.setResizable(false);
         scene1 = new Scene(root);
         window.setScene(scene1);
         window.setTitle("Weather");
+        window.show();
 
     }
 
