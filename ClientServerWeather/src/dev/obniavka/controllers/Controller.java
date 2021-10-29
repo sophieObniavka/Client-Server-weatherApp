@@ -2,7 +2,12 @@ package dev.obniavka.controllers;
 
 import dev.obniavka.DaysOfWeek;
 import dev.obniavka.UrlContent;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -14,6 +19,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
+import java.io.IOException;
 import java.time.LocalDate;
 
 
@@ -90,7 +96,13 @@ public class Controller {
         String weather = weatherObject.getJSONObject(0).toString();
         return weather;
     }
-
+    public void turnSevenDays(ActionEvent actionEvent) throws IOException {
+        Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/sevenDays.fxml"));
+        Scene scene = new Scene(newScene);
+        window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
 
 
 }
