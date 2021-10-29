@@ -103,6 +103,19 @@ public class Controller {
         window.setScene(scene);
         window.show();
     }
-
+    public void turnWeatherHistory(ActionEvent actionEvent) throws IOException {
+        Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/weatherHistory.fxml"));
+        Scene scene = new Scene(newScene);
+        window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+    public  void authorizeScene(ActionEvent actionEvent) throws IOException{
+        Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/login.fxml"));
+        Scene scene = new Scene(newScene);
+        window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
 
 }
