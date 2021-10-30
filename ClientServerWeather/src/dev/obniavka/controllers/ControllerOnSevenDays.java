@@ -2,8 +2,13 @@ package dev.obniavka.controllers;
 
 import dev.obniavka.DaysOfWeek;
 import dev.obniavka.UrlContent;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -16,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
+import java.io.IOException;
 import java.util.ArrayList;
 
 
@@ -54,19 +60,21 @@ public class ControllerOnSevenDays {
             ArrayList<Integer> resultPres = new ArrayList<>();
             ArrayList<Integer> tempLoc = new ArrayList<>();
 
+            //adding information about temperature and pressure in arrayLists
             for (int i = 0; i < returnText().size(); i++) {
                 result.add(returnText().get(i).substring(returnText().get(i).indexOf("temp") + 4,returnText().get(i).indexOf("feels")).replaceAll("\\D+", ""));
                 resultPres.add(Integer.parseInt(returnText().get(i).substring(returnText().get(i).indexOf("pressure") + 5,returnText().get(i).indexOf("sea_level")).replaceAll("\\D+", ""))-282);
             }
 
             for (int i = 0; i < result.size(); i++) {
+                //from Kelvin to Celsius
                 tempLoc.add(Integer.parseInt(result.get(i).substring(0,3)) - 273);
             }
 
 
 
             clearAll();
-
+//adding text to labels
             day1.setText("");
             day2.setText("");
             day3.setText("");
@@ -155,6 +163,8 @@ public class ControllerOnSevenDays {
             }
         });
     }
+
+    //returns weather from site
     public  ArrayList<String> returnText(){
         String getCity = cityInput.getText();
         String output = UrlContent.getUrlContent("http://api.openweathermap.org/data/2.5/forecast?q="+ getCity +"&appid=2cbefecfc08bdc704d243280d9a5599b");
@@ -169,7 +179,7 @@ public class ControllerOnSevenDays {
         return getText;
     }
 
-
+//set invisible pictures before searching for new information
     void clearAll(){
         Clear.setVisible(false);
         Clear1.setVisible(false);
@@ -193,7 +203,7 @@ public class ControllerOnSevenDays {
         Rainy5.setVisible(false);
         Rainy6.setVisible(false);
     }
-
+// setting each picture
 
     void setFirstPicture() {
            if (returnText().get(0).contains("Clear")) {
@@ -266,5 +276,32 @@ public class ControllerOnSevenDays {
     }
 
 
+    //action on button that sets main scene
+    public void turnBackToNow(ActionEvent actionEvent) throws IOException {
+        Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/sample.fxml"));
+        Scene scene = new Scene(newScene);
+        window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+
+    }
+
+    //action on button that sets login scene
+    public  void authorizeScene(ActionEvent actionEvent) throws IOException {
+        Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/login.fxml"));
+        Scene scene = new Scene(newScene);
+        window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
+
+    //action on button that sets weather history scene
+    public void turnWeatherHistory(ActionEvent actionEvent) throws IOException {
+        Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/weatherHistory.fxml"));
+        Scene scene = new Scene(newScene);
+        window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
+    }
 
 }
