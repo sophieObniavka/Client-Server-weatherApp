@@ -11,7 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" >
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.obniavka.controllers.ControllerOnSevenDays">
     <children>
         <ImageView fitHeight="815.0" fitWidth="1134.0" layoutX="1.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -29,7 +29,7 @@
                 <Image url="https://w7.pngwing.com/pngs/1004/759/png-transparent-clear-signs-sun-clouds-weather-icon.pnghttps://w7.pngwing.com/pngs/1004/759/png-transparent-clear-signs-sun-clouds-weather-icon.png" />
             </image>
         </ImageView>
-        <Button fx:id="adminBack" layoutX="781.0" layoutY="667.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="237.0" style="-fx-background-color: #ffa643;" text="Повернутися" textFill="WHITE" >
+        <Button fx:id="adminBack" layoutX="781.0" layoutY="667.0" mnemonicParsing="false" prefHeight="70.0" prefWidth="237.0" style="-fx-background-color: #ffa643;" text="Повернутися" textFill="WHITE" onAction="#turnBackToNow">
             <font>
                 <Font name="System Italic" size="25.0" />
             </font>
