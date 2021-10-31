@@ -11,7 +11,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Lighting?>
 <?import javafx.scene.effect.Shadow?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.obniavka.controllers.ControllerOnSevenDays">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.obniavka.controllers.LoginController">
     <children>
         <ImageView fitHeight="815.0" fitWidth="1134.0" layoutX="1.0" layoutY="80.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -51,7 +51,7 @@
         <PasswordField fx:id="pass" layoutX="443.0" layoutY="416.0" prefHeight="44.0" prefWidth="249.0" promptText="Введіть пароль" />
         <TextField fx:id="login" layoutX="443.0" layoutY="329.0" prefHeight="44.0" prefWidth="249.0" promptText="Введіть логін" />
 
-        <Button fx:id="enter" layoutX="473.0" layoutY="502.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="192.0" style="-fx-background-color: #9999ff;" text="Увійти" >
+        <Button fx:id="enter" layoutX="473.0" layoutY="502.0" mnemonicParsing="false" prefHeight="54.0" prefWidth="192.0" style="-fx-background-color: #9999ff;" text="Увійти" onAction="#enterInput">
             <font>
                 <Font size="23.0" />
             </font>
