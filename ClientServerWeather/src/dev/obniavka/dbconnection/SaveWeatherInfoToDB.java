@@ -1,14 +1,10 @@
 package dev.obniavka.dbconnection;
 
-import javafx.stage.Stage;
-
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+
 
 public class SaveWeatherInfoToDB  extends Configs{
     public Connection dataBaseLink;
-    Stage window;
 
     public Connection getConnection() throws ClassNotFoundException, SQLException {
         String connectionString = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
@@ -16,6 +12,22 @@ public class SaveWeatherInfoToDB  extends Configs{
         dataBaseLink = DriverManager.getConnection(connectionString, dbUser, dbPass);
         return dataBaseLink;
     }
+
+    public boolean authorize(String name, String password) throws SQLException, ClassNotFoundException {
+        Statement statement = getConnection().createStatement();
+        ResultSet admin =  statement.executeQuery("SELECT name, password FROM weather.moderator");
+        while (admin.next()) {
+            String dataAdmin;
+            String dataPass;
+            dataAdmin = admin.getString("name");
+            dataPass = admin.getString("password");
+            if (dataAdmin.equals(name) && dataPass.equals(password)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 
 }
