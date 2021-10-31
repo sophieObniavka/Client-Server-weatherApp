@@ -29,5 +29,17 @@ public class SaveWeatherInfoToDB  extends Configs{
     }
 
 
+    public void addWeather(String text,int temp,String pressure, java.sql.Date date, String sky) throws SQLException, ClassNotFoundException {
+        String insert = "INSERT INTO weather.weather_history(oblast, temp, pressure, date, sky)"
+                + "VALUES(?,?,?,?,?)";
+        PreparedStatement prST = getConnection().prepareStatement(insert);
+        prST.setString(1, text);
+        prST.setInt(2, temp);
+        prST.setString(3,pressure);
+        prST.setDate(4,date);
+        prST.setString(5,sky);
+        prST.executeUpdate();
+    }
+
 
 }
