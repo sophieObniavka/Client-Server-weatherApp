@@ -1,6 +1,8 @@
 package dev.obniavka.dbconnection;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class SaveWeatherInfoToDB  extends Configs{
@@ -41,5 +43,16 @@ public class SaveWeatherInfoToDB  extends Configs{
         prST.executeUpdate();
     }
 
+    public List<String> findInfo(String text, java.sql.Date date) throws SQLException, ClassNotFoundException {
+        List<String> list = new ArrayList<>();
+        Statement statement = getConnection().createStatement();
 
+        ResultSet search =  statement.executeQuery("SELECT temp, pressure, sky FROM weather.weather_history WHERE oblast = '" + text + "' AND date = '" + date.toString() + "'");
+        while (search.next()) {
+            list.add(search.getString("temp"));
+            list.add(search.getString("pressure"));
+            list.add(search.getString("sky"));
+        }
+        return list;
+    }
 }
