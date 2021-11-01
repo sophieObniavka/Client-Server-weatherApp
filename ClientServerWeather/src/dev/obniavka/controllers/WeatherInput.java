@@ -18,6 +18,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.Calendar;
+import java.util.Date;
 
 public class WeatherInput {
     public DatePicker dateInput;
@@ -38,6 +41,13 @@ public class WeatherInput {
     Label info;
     Stage window;
 
+    public java.sql.Date formSQLDate(){
+        LocalDate ld = dateInput.getValue();
+        Calendar c = Calendar.getInstance();
+        c.set(ld.getYear(), ld.getMonthValue() - 1, ld.getDayOfMonth());
+        Date date = c.getTime();
+        return new java.sql.Date(date.getTime());
+    }
 
     public void turnBackToNow(ActionEvent actionEvent) throws IOException {
         Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/sample.fxml"));
@@ -48,10 +58,11 @@ public class WeatherInput {
         window.show();
     }
 
-    public void addWeather() {
+    public void addWeather() throws SQLException, ClassNotFoundException {
 
         if (writePress.getText() == null || writeTemp.getText().isEmpty() || dateInput.getValue() == null || skySelect.getValue() == null || cityCheck.getValue() == null || writePress.getText() == null || skySelect.getValue() == "Небо" || cityCheck.getValue() == "Місто, область") {
-             inf.weatherAdd();
+            save.addWeather(cityCheck.getValue().toString(), Integer.parseInt(writeTemp.getText()), writePress.getText(), formSQLDate(), skySelect.getValue().toString());
+            inf.weatherAdd();
         } else {
             inf.succsesfulAdding();
         }
