@@ -2,6 +2,7 @@ package dev.obniavka.controllers;
 
 import dev.obniavka.InfoBox;
 import dev.obniavka.dbconnection.SaveWeatherInfoToDB;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -15,6 +16,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -41,6 +43,36 @@ public class WeatherInput {
     Label info;
     Stage window;
 
+
+    @FXML
+    void initialize(){
+        skySelect.setValue("Небо");
+        skySelect.setItems(skyList);
+        cityCheck.setValue("Місто, область");
+        cityCheck.setItems(cityList);
+
+    }
+
+    public void setDateInput() {
+        LocalDate ld = dateInput.getValue();
+        LocalDate local = LocalDate.now();
+
+        if (ld.isAfter(local)) {
+            info.setVisible(true);
+            PauseTransition visiblePause = new PauseTransition(
+                    Duration.seconds(3)
+            );
+            visiblePause.setOnFinished(
+                    eve -> info.setVisible(false)
+            );
+            visiblePause.play();
+            dateInput.isDisable();
+            dateInput.getEditor().clear();
+            dateInput.setDisable(false);
+
+        }
+    }
+    
     public java.sql.Date formSQLDate(){
         LocalDate ld = dateInput.getValue();
         Calendar c = Calendar.getInstance();
