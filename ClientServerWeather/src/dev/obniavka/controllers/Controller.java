@@ -1,7 +1,8 @@
 package dev.obniavka.controllers;
 
 import dev.obniavka.DaysOfWeek;
-import dev.obniavka.UrlContent;
+import dev.obniavka.InfoBox;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -15,12 +16,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
+import java.io.*;
+import java.net.Socket;
 
-import java.io.IOException;
-import java.time.LocalDate;
 
 
 public class Controller {
@@ -41,19 +40,28 @@ public class Controller {
     private TextField cityInput;
     Stage window;
 
-    @FXML void initialize(){
+
+    InfoBox info = new InfoBox();
+    @FXML void initialize() throws IOException {
+        Socket socket = new Socket("localhost", 2411);
+
+        BufferedReader in = new BufferedReader(
+                new InputStreamReader(socket.getInputStream()));
 
 
-        searchButton.setOnAction(event -> {
-            String getCity = cityInput.getText();
-            String output = UrlContent.getUrlContent("http://api.openweathermap.org/data/2.5/weather?q=" + getCity + "&appid=2cbefecfc08bdc704d243280d9a5599b");
-            LocalDate localDate = LocalDate.now();
+        PrintWriter out = new PrintWriter(
+                new BufferedWriter(
+                        new OutputStreamWriter(
+                                socket.getOutputStream())), true);
 
-            if (!output.isEmpty()) {
 
-                JSONObject obj = new JSONObject(output);
-                int tempr = (int) ((int) obj.getJSONObject("main").getDouble("temp") - 273.15);
-                int press = ((int)obj.getJSONObject("main").getDouble("pressure")-282);
+
+
+
+            searchButton.setOnAction(event -> {
+                out.println(cityInput.getText());
+
+
                 iconClear.setVisible(false);
                 iconRainy.setVisible(false);
                 iconCloud.setVisible(false);
@@ -61,41 +69,43 @@ public class Controller {
                 day.setText("");
                 tysk.setText("");
                 temp.setText("Температура: ");
-                day.setText(DaysOfWeek.ukrainianDay((localDate.getDayOfWeek()).toString()));
                 day.setFont(javafx.scene.text.Font.font(null, FontWeight.BOLD, 28));
                 day.setStyle("-fx-font-size: 28px;");
                 tysk.setText("Тиск: ");
-                temp.setText(temp.getText() + tempr + "°C");
-                tysk.setText(tysk.getText() + press + " мм рт. ст.");
+                try {
+                    String []result = in.readLine().split(",");
+                    if(result == null){
+                        temp.setText("");
+                        day.setText("");
+                        tysk.setText("");
+                        iconClear.setVisible(false);
+                        iconCloud.setVisible(false);
+                        iconRainy.setVisible(false);
+                       info.incorrectCityMessage();
+                    }
+                    else {
+                        temp.setText(temp.getText() + result[0] + "°C");
+                        tysk.setText(tysk.getText() + result[1] + " мм рт. ст.");
+                        day.setText(DaysOfWeek.ukrainianDay(result[2]));
+                        if(result[3].contains("Clear")){
+                            iconClear.setVisible(true);
+                        }
+                        else if(result[3].contains("Clouds")){
+                            iconCloud.setVisible(true);
+                        }
+                        else if(result[3].contains("Rain")){
+                            iconRainy.setVisible(true);
+                        }
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
 
-                actionOnIcon();
 
-
-
-            }
         });
     }
 
-    public void actionOnIcon(){
-        if(returnWeather().contains("Clear")){
-            iconClear.setVisible(true);
-        }
-        else if(returnWeather().contains("Clouds")){
-            iconCloud.setVisible(true);
-        }
-        else if(returnWeather().contains("Rain")){
-            iconRainy.setVisible(true);
-        }
-    }
 
-    public String returnWeather(){
-        String getCity = cityInput.getText();
-        String output = UrlContent.getUrlContent("http://api.openweathermap.org/data/2.5/forecast?q=" + getCity + "&appid=2cbefecfc08bdc704d243280d9a5599b");
-        JSONObject obj = new JSONObject(output);
-        JSONArray weatherObject = obj.getJSONArray("list");
-        String weather = weatherObject.getJSONObject(0).toString();
-        return weather;
-    }
     public void turnSevenDays(ActionEvent actionEvent) throws IOException {
         Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/sevenDays.fxml"));
         Scene scene = new Scene(newScene);
@@ -117,5 +127,6 @@ public class Controller {
         window.setScene(scene);
         window.show();
     }
+
 
 }
