@@ -6,25 +6,26 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class URLContent {
-    public static String getUrlContent(String urlAddress){
-        StringBuffer content = new StringBuffer();
 
-        try{
+    public static String getUrlContent(String urlAddress) {
+        StringBuffer content = new StringBuffer();
+        try {
             URL url = new URL(urlAddress);
             URLConnection connection = url.openConnection();
 
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
 
-            while ((line = bufferedReader.readLine()) != null){
+            while ((line = bufferedReader.readLine()) != null) {
                 content.append(line + "\n");
             }
-        }
 
-        catch (Exception e){
-            System.out.println("No such city");
+        } catch (Exception e) {
+             return "null";
         }
         return content.toString();
     }
+
+
 }
 
