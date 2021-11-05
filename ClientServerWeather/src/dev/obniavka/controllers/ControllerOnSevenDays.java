@@ -1,6 +1,7 @@
 package dev.obniavka.controllers;
 
 import dev.obniavka.DaysOfWeek;
+import dev.obniavka.InfoBox;
 import dev.obniavka.UrlContent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -21,7 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 
-import java.io.IOException;
+import java.io.*;
 import java.util.ArrayList;
 
 
@@ -48,33 +49,18 @@ public class ControllerOnSevenDays {
     private Text tysk,tysk1,tysk2,tysk3,tysk4,tysk5,tysk6;
     Stage window;
 
+    InfoBox info = new InfoBox();
 
+    ConnectionToServer cnT = new ConnectionToServer();
+
+    public ControllerOnSevenDays() throws IOException {
+    }
 
     @FXML void initialize(){
     searchButton.setOnAction(event -> {
-        String getCity = cityInput.getText();
-        String output = UrlContent.getUrlContent("http://api.openweathermap.org/data/2.5/forecast?q="+ getCity +"&appid=2cbefecfc08bdc704d243280d9a5599b");
-        if (!output.isEmpty()) {
-
-            ArrayList<String> result = new ArrayList<>();
-            ArrayList<Integer> resultPres = new ArrayList<>();
-            ArrayList<Integer> tempLoc = new ArrayList<>();
-
-            //adding information about temperature and pressure in arrayLists
-            for (int i = 0; i < returnText().size(); i++) {
-                result.add(returnText().get(i).substring(returnText().get(i).indexOf("temp") + 4,returnText().get(i).indexOf("feels")).replaceAll("\\D+", ""));
-                resultPres.add(Integer.parseInt(returnText().get(i).substring(returnText().get(i).indexOf("pressure") + 5,returnText().get(i).indexOf("sea_level")).replaceAll("\\D+", ""))-282);
-            }
-
-            for (int i = 0; i < result.size(); i++) {
-                //from Kelvin to Celsius
-                tempLoc.add(Integer.parseInt(result.get(i).substring(0,3)) - 273);
-            }
-
-
 
             clearAll();
-//adding text to labels
+
             day1.setText("");
             day2.setText("");
             day3.setText("");
@@ -112,21 +98,27 @@ public class ControllerOnSevenDays {
             temp1.setText("");
             temp1.setText("Температура: ");
 
+        try {
+            String[] result =
+                    cnT.forecast(cityInput.getText()).split(",");
+            if (result[0].equals("null")){
+               info.incorrectCityMessage();
+           }
 
-            temp.setText(temp.getText() + tempLoc.get(0) + "°C");
-            temp1.setText(temp1.getText() + tempLoc.get(1) + "°C");
-            temp2.setText(temp2.getText() + tempLoc.get(2) + "°C");
-            temp3.setText(temp3.getText() + tempLoc.get(3) + "°C");
-            temp4.setText(temp4.getText() + tempLoc.get(4) + "°C");
-            temp5.setText(temp5.getText() + tempLoc.get(5) + "°C");
-            temp6.setText(temp6.getText() + tempLoc.get(6) + "°C");
+            temp.setText(temp.getText() + result[0] + "°C");
+            temp1.setText(temp1.getText() + result[3] + "°C");
+           temp2.setText(temp2.getText() + result[6] + "°C");
+            temp3.setText(temp3.getText() + result[9] + "°C");
+            temp4.setText(temp4.getText() + result[12] + "°C");
+            temp5.setText(temp5.getText() + result[15] + "°C");
+            temp6.setText(temp6.getText() + result[18] + "°C");
 
 
-            day1.setText(DaysOfWeek.setDays(0));
+           day1.setText(DaysOfWeek.setDays(0));
             day1.setFont(Font.font(null, FontWeight.BOLD, 28));
-            day1.setStyle("-fx-font-size: 28px;");
+           day1.setStyle("-fx-font-size: 28px;");
             day2.setText(DaysOfWeek.setDays(1));
-            day2.setFont(Font.font(null, FontWeight.BOLD, 28));
+           day2.setFont(Font.font(null, FontWeight.BOLD, 28));
             day2.setStyle("-fx-font-size: 28px;");
             day3.setText(DaysOfWeek.setDays(2));
             day3.setFont(Font.font(null, FontWeight.BOLD, 28));
@@ -144,40 +136,28 @@ public class ControllerOnSevenDays {
             day7.setFont(Font.font(null, FontWeight.BOLD, 28));
             day7.setStyle("-fx-font-size: 28px;");
 
-            tysk.setText(tysk.getText() + resultPres.get(0) + " мм рт. ст.");
-            tysk1.setText(tysk1.getText() + resultPres.get(1) + " мм рт. ст.");
-            tysk2.setText(tysk2.getText() + resultPres.get(2) + " мм рт. ст.");
-            tysk3.setText(tysk3.getText() + resultPres.get(3)+ " мм рт. ст.");
-            tysk4.setText(tysk4.getText() + resultPres.get(4)+ " мм рт. ст.");
-            tysk5.setText(tysk5.getText() + resultPres.get(5)+ " мм рт. ст.");
-            tysk6.setText(tysk6.getText() + resultPres.get(6)+ " мм рт. ст.");
+            tysk.setText(tysk.getText() + result[1] + " мм рт. ст.");
+            tysk1.setText(tysk1.getText() + result[4] + " мм рт. ст.");
+            tysk2.setText(tysk2.getText() + result[7] + " мм рт. ст.");
+            tysk3.setText(tysk3.getText() + result[10] + " мм рт. ст.");
+            tysk4.setText(tysk4.getText() + result[13] + " мм рт. ст.");
+            tysk5.setText(tysk5.getText() + result[16] + " мм рт. ст.");
+            tysk6.setText(tysk6.getText() + result[19]+ " мм рт. ст.");
 
-            setFirstPicture();
-            setSecondsPicture();
-            setThirdPicture();
-            setFourthPicture();
-            setFifthPicture();
-            setSixthPicture();
-            setSeventhPicture();
+          setFirstPicture(result[2]);
+            setSecondsPicture(result[5]);
+            setThirdPicture(result[8]);
+            setFourthPicture(result[11]);
+            setFifthPicture(result[14]);
+            setSixthPicture(result[17]);
+            setSeventhPicture(result[20]);
 
-            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         });
     }
 
-    //returns weather from site
-    public  ArrayList<String> returnText(){
-        String getCity = cityInput.getText();
-        String output = UrlContent.getUrlContent("http://api.openweathermap.org/data/2.5/forecast?q="+ getCity +"&appid=2cbefecfc08bdc704d243280d9a5599b");
-        JSONObject obj = new JSONObject(output);
-        JSONArray weatherObject = obj.getJSONArray("list");
-        ArrayList<String> getText = new ArrayList<>();
-        for (int i = 0; i < 40; i+=6) {
-            getText.add(weatherObject.getJSONObject(i).toString());
-
-        }
-
-        return getText;
-    }
 
 //set invisible pictures before searching for new information
     void clearAll(){
@@ -205,72 +185,72 @@ public class ControllerOnSevenDays {
     }
 // setting each picture
 
-    void setFirstPicture() {
-           if (returnText().get(0).contains("Clear")) {
+    void setFirstPicture(String sky) {
+           if (sky.contains("Clear")) {
                Clear.setVisible(true);
-           } else if (returnText().get(0).contains("Clouds")) {
+           } else if (sky.contains("Clouds")) {
                Clouds.setVisible(true);
-           } else if (returnText().get(0).contains("Rain")) {
+           } else if (sky.contains("Rain")) {
                Rainy.setVisible(true);
            }
        }
 
-    void setSecondsPicture () {
-        if (returnText().get(1).contains("Clear")) {
+    void setSecondsPicture (String sky) {
+        if (sky.contains("Clear")) {
             Clear1.setVisible(true);
-        } else if (returnText().get(1).contains("Clouds")) {
+        } else if (sky.contains("Clouds")) {
             Clouds1.setVisible(true);
-        } else if (returnText().get(1).contains("Rain")) {
+        } else if (sky.contains("Rain")) {
             Rainy1.setVisible(true);
         }
     }
 
-    void setThirdPicture () {
-        if (returnText().get(2).contains("Clear")) {
+    void setThirdPicture (String sky) {
+        if (sky.contains("Clear")) {
             Clear2.setVisible(true);
-        } else if (returnText().get(2).contains("Clouds")) {
+        } else if (sky.contains("Clouds")) {
             Clouds2.setVisible(true);
-        } else if (returnText().get(2).contains("Rain")) {
+        } else if (sky.contains("Rain")) {
             Rainy2.setVisible(true);
         }
     }
 
-    void setFourthPicture () {
-        if (returnText().get(3).contains("Clear")) {
+    void setFourthPicture (String sky) {
+        if (sky.contains("Clear")) {
             Clear3.setVisible(true);
-        } else if (returnText().get(3).contains("Clouds")) {
+        } else if (sky.contains("Clouds")) {
             Clouds3.setVisible(true);
-        } else if (returnText().get(3).contains("Rain")) {
+        } else if (sky.contains("Rain")) {
             Rainy3.setVisible(true);
         }
     }
 
-    void setFifthPicture () {
-        if (returnText().get(4).contains("Clear")) {
+    void setFifthPicture (String sky) {
+        if (sky.contains("Clear")) {
             Clear4.setVisible(true);
-        } else if (returnText().get(4).contains("Clouds")) {
+        } else if (sky.contains("Clouds")) {
             Clouds4.setVisible(true);
-        } else if (returnText().get(4).contains("Rain")) {
+        } else if (sky.contains("Rain")) {
             Rainy4.setVisible(true);
         }
     }
 
-    void setSixthPicture () {
-        if (returnText().get(5).contains("Clear")) {
+    void setSixthPicture(String sky) {
+        if (sky.contains("Clear")) {
             Clear5.setVisible(true);
-        } else if (returnText().get(5).contains("Clouds")) {
+        } else if (sky.contains("Clouds")) {
             Clouds5.setVisible(true);
-        } else if (returnText().get(5).contains("Rain")) {
+        } else if (sky.contains("Rain")) {
             Rainy5.setVisible(true);
         }
     }
 
-    void setSeventhPicture () {
-        if (returnText().get(6).contains("Clear")) {
+    void setSeventhPicture (String sky) {
+        if (sky.contains("Clear")) {
             Clear6.setVisible(true);
-        } else if (returnText().get(6).contains("Clouds")) {
+        } else if (sky.contains("Clouds")) {
             Clouds6.setVisible(true);
-        } else if (returnText().get(6).contains("Rain")) {
+        } else if (sky.contains("Rain")) {
             Rainy6.setVisible(true);
         }
     }
