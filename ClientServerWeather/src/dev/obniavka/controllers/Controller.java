@@ -22,7 +22,7 @@ import java.net.Socket;
 
 
 
-public class Controller {
+public class Controller{
     public Label cardOne;
     public ImageView iconClear;
     public ImageView iconCloud;
@@ -42,25 +42,20 @@ public class Controller {
 
 
     InfoBox info = new InfoBox();
+
+
+
+    public Controller() throws IOException {
+    }
+
+    ConnectionToServer cT = new ConnectionToServer();
+
     @FXML void initialize() throws IOException {
-        Socket socket = new Socket("localhost", 2411);
 
-        BufferedReader in = new BufferedReader(
-                new InputStreamReader(socket.getInputStream()));
+        Socket sock = ConnectionToServer.socket;
 
 
-        PrintWriter out = new PrintWriter(
-                new BufferedWriter(
-                        new OutputStreamWriter(
-                                socket.getOutputStream())), true);
-
-
-
-
-
-            searchButton.setOnAction(event -> {
-                out.println(cityInput.getText());
-
+        searchButton.setOnAction(event -> {
 
                 iconClear.setVisible(false);
                 iconRainy.setVisible(false);
@@ -73,33 +68,51 @@ public class Controller {
                 day.setStyle("-fx-font-size: 28px;");
                 tysk.setText("Тиск: ");
                 try {
-                    String []result = in.readLine().split(",");
-                    if(result == null){
-                        temp.setText("");
-                        day.setText("");
-                        tysk.setText("");
-                        iconClear.setVisible(false);
-                        iconCloud.setVisible(false);
-                        iconRainy.setVisible(false);
-                       info.incorrectCityMessage();
+                   String [] result =  cT.weatherInfo(cityInput.getText()).split(",");
+                    if(result[0].equals("null")){
+                        info.incorrectCityMessage();
                     }
                     else {
-                        temp.setText(temp.getText() + result[0] + "°C");
-                        tysk.setText(tysk.getText() + result[1] + " мм рт. ст.");
-                        day.setText(DaysOfWeek.ukrainianDay(result[2]));
-                        if(result[3].contains("Clear")){
+                        //System.out.println(result[2]);
+                        if (result[2].contains("Clear")) {
                             iconClear.setVisible(true);
-                        }
-                        else if(result[3].contains("Clouds")){
+                        } else if (result[2].contains("Clouds")) {
                             iconCloud.setVisible(true);
-                        }
-                        else if(result[3].contains("Rain")){
+                        } else if (result[2].contains("Rain")) {
                             iconRainy.setVisible(true);
                         }
+                        temp.setText(temp.getText() + result[0] + "°C");
+                        tysk.setText(tysk.getText() + result[1] + " мм рт. ст.");
+                        day.setText(DaysOfWeek.setDays(0));
                     }
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+              /*  try {
+                    String []result = in.readLine().split(",");
+                            in.readLine().split(",");
+                    if(result[0].equals("null")){
+                        info.incorrectCityMessage();
+                    }
+                    else {
+                        //System.out.println(result[2]);
+                        if (result[2].contains("Clear")) {
+                            iconClear.setVisible(true);
+                        } else if (result[2].contains("Clouds")) {
+                            iconCloud.setVisible(true);
+                        } else if (result[2].contains("Rain")) {
+                            iconRainy.setVisible(true);
+                        }
+                        temp.setText(temp.getText() + result[0] + "°C");
+                        tysk.setText(tysk.getText() + result[1] + " мм рт. ст.");
+                        day.setText(DaysOfWeek.setDays(0));
+                    }
+
+                    } catch (IOException e) {
+                    e.printStackTrace();
+                }*/
+
+
 
 
         });
@@ -107,6 +120,7 @@ public class Controller {
 
 
     public void turnSevenDays(ActionEvent actionEvent) throws IOException {
+
         Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/sevenDays.fxml"));
         Scene scene = new Scene(newScene);
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
@@ -125,6 +139,7 @@ public class Controller {
         Scene scene = new Scene(newScene);
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
+
         window.show();
     }
 
