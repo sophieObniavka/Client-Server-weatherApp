@@ -53,4 +53,21 @@ public class ConnectionToServer {
         }
         return search;
     }
+
+    public String authorize(String login, String pass) throws IOException {
+        out.println("authorize");
+        out.println(login);
+        out.println(pass);
+
+        return String.valueOf(in.readLine());
+    }
+
+    public void addWeather(String oblast,String temp,String pressure, String date, String sky){
+        out.println("input");
+        out.println(oblast);
+        out.println(temp);
+        out.println(pressure);
+        out.println(date);
+        out.println(sky);
+    }
 }
