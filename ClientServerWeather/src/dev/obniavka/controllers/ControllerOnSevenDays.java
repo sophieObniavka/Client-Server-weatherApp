@@ -2,7 +2,6 @@ package dev.obniavka.controllers;
 
 import dev.obniavka.DaysOfWeek;
 import dev.obniavka.InfoBox;
-import dev.obniavka.UrlContent;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 
@@ -18,12 +17,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import org.json.JSONArray;
-import org.json.JSONObject;
 
 
 import java.io.*;
-import java.util.ArrayList;
 
 
 public class ControllerOnSevenDays {
