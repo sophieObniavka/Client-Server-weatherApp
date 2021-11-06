@@ -39,7 +39,7 @@
             <font>
                 <Font size="16.0" />
             </font></Text>
-        <Label fx:id="day" layoutX="468.0" layoutY="301.0" prefHeight="72.0" prefWidth="240.0" textAlignment="CENTER">
+        <Label fx:id="day" layoutX="468.0" layoutY="301.0" prefHeight="72.0" prefWidth="240.0" textAlignment="CENTER" >
             <font>
                 <Font size="30.0" />
             </font>
@@ -65,8 +65,15 @@
         </Button>
         <Button fx:id="now" layoutX="708.0" layoutY="91.0" mnemonicParsing="false"  prefHeight="21.0" prefWidth="72.0" style="-fx-background-color: #9999ff;" text="зараз" textFill="#fafafa" onAction="#turnNow"/>
         <ComboBox fx:id="cityPick" layoutX="708.0" layoutY="186.0" prefHeight="25.0" prefWidth="267.0" />
-        <DatePicker fx:id="datePick" layoutX="263.0" layoutY="184.0" prefHeight="30.0" prefWidth="192.0"  />
-        <Button fx:id="search" layoutX="513.0" layoutY="686.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffa643;" text="Пошук" textFill="WHITE" >
+        <DatePicker fx:id="datePick" layoutX="263.0" layoutY="184.0" prefHeight="30.0" prefWidth="192.0" onAction="#setDateInput"  />
+
+        <Label fx:id="error" layoutX="222.0" layoutY="214.0" prefHeight="40.0" prefWidth="293.0" text="Дата повинна бути не пізніше теперішньої!" textFill="RED" visible="false">
+            <font>
+                <Font size="14.0" />
+            </font>
+        </Label>
+
+        <Button fx:id="search" layoutX="513.0" layoutY="686.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="150.0" style="-fx-background-color: #ffa643;" text="Пошук" textFill="WHITE" onAction="#searchWeatherInfo" >
             <font>
                 <Font name="System Italic" size="16.0" />
             </font>
