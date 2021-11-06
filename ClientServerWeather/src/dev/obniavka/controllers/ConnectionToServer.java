@@ -1,8 +1,9 @@
 package dev.obniavka.controllers;
 
+import javax.swing.*;
 import java.io.*;
 import java.net.Socket;
-import java.util.List;
+
 
 public class ConnectionToServer {
 
@@ -13,6 +14,7 @@ public class ConnectionToServer {
             socket = new Socket("localhost", 2411);
         } catch (IOException e) {
             e.printStackTrace();
+            JOptionPane.showMessageDialog(null,"Немає з'єднання з сервером!");
         }
     }
 
@@ -38,13 +40,17 @@ public class ConnectionToServer {
     public String forecast(String city) throws IOException{
         out.println("seven days");
         out.println(city);
-       // System.out.println(in.readLine());
         return String.valueOf(in.readLine());
     }
 
-    public int hello(){
-        out.println("history");
-        System.out.println("Hello");
-        return 0;
+    public String searchHistory(String oblast, String date) throws IOException {
+        out.println("historySearch");
+        out.println(oblast);
+        out.println(date);
+        String search = String.valueOf(in.readLine());
+        if(search.equals("null")){
+            return "null";
+        }
+        return search;
     }
 }
