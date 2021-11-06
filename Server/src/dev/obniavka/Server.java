@@ -75,7 +75,6 @@ public class Server {
                         out.println("null");
                     }
                     else {
-                        System.out.println(infoToClient.get(0) + "," + infoToClient.get(1) + "," + infoToClient.get(2));
                         out.println(infoToClient.get(0) + "," + infoToClient.get(1) + "," + infoToClient.get(2));
                     }
 
@@ -86,9 +85,41 @@ public class Server {
                     System.out.println("There is no such class");
                 }
 
+            }
 
+
+            else if(scene.equals("authorize")){
+                System.out.println("Admin wants to authorise");
+                String login = String.valueOf(in.readLine());
+                String pass = String.valueOf(in.readLine());
+
+                try {
+                    out.println(db.authorize(login,pass));
+                } catch (SQLException e) {
+                    System.out.println("MySQL exception");
+                } catch (ClassNotFoundException e) {
+                    System.out.println("There is no such class");
+                }
+            }
+
+            else if(scene.equals("input")){
+                System.out.println("Admin wants to add weather");
+                String oblast = String.valueOf(in.readLine());
+                String temp = String.valueOf(in.readLine());
+                String press = String.valueOf(in.readLine());
+                String date = String.valueOf(in.readLine());
+                String sky = String.valueOf(in.readLine());
+                try {
+                    db.addWeather(oblast,temp,press,date,sky);
+                    System.out.println("I've added data in database");
+                } catch (SQLException e) {
+                    System.out.println("MySQL exception");
+                } catch (ClassNotFoundException e) {
+                    System.out.println("There is no such class");
+                }
 
             }
+
 
              }
 
