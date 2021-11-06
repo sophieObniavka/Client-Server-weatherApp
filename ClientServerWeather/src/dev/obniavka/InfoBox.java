@@ -12,4 +12,6 @@ public class InfoBox{
 
     public void succsesfulAdding(){ JOptionPane.showMessageDialog(null,"Інформація про погоду була успішно додана"); }
 
+    public void noInfo(){ JOptionPane.showMessageDialog(null,"На жаль, немає інформації на обрані Вами критерії"); }
+
 }
