@@ -1,8 +1,12 @@
 package dev.obniavka;
 
+import dev.obniavka.dbconnection.SaveWeatherInfoToDB;
+
 import java.io.*;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 public class Server {
@@ -10,7 +14,7 @@ public class Server {
 
     public static void main(String[] a) throws IOException {
         ServerSocket s = new ServerSocket(Server.PORT);
-
+        SaveWeatherInfoToDB db = new SaveWeatherInfoToDB();
         String tmp;
 
     try {
@@ -18,7 +22,7 @@ public class Server {
 
         Socket socket = s.accept();
         System.out.println("Yaay, client is connected");
-        
+
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter out =
                 new PrintWriter(
@@ -32,24 +36,23 @@ public class Server {
 
 
             if(scene.equals("main")) {
+                System.out.println("Client needs weather for today");
                      tmp = in.readLine();
                      ArrayList<String> result = Weather.findForecast(tmp);
-                     System.out.println("I've sent weather info to client!");
                      if (result == null) {
                          out.println("null");
                          System.out.println("There is no such city");
                      } else {
-                         out.println(result.get(0) + "," + result.get(1) + "," + result.get(2));
-                         //out.println(result.get(0) + "," + result.get(1));
-                         System.out.println(result.get(0) + "," + result.get(1));
-                         System.out.println(result.get(2).replace("\"", ""));
+                         out.println(result.get(0) + "," + result.get(1) + "," + result.get(2));;
                      }
+                System.out.println("I've sent weather info to client!");
 
                  }
             else if (scene.equals("seven days")){
                      System.out.println("Client needs weather forecast");
                      tmp = in.readLine();
                      ArrayList<String> result = Weather.findForecast(tmp);
+
                 if (result == null) {
                     out.println("null");
                     System.out.println("There is no such city");
@@ -59,8 +62,32 @@ public class Server {
                 }
                  }
 
-            else if(scene.equals("history")){
-                System.out.println("cool");
+            else if(scene.equals("historySearch")){
+                String date;
+                System.out.println("Client wants to see weather history");
+                tmp = in.readLine();
+                date = in.readLine();
+
+                ArrayList<String> infoToClient;
+                try {
+                    infoToClient = db.findInfo(tmp, date);
+                    if(infoToClient == null || infoToClient.isEmpty()){
+                        out.println("null");
+                    }
+                    else {
+                        System.out.println(infoToClient.get(0) + "," + infoToClient.get(1) + "," + infoToClient.get(2));
+                        out.println(infoToClient.get(0) + "," + infoToClient.get(1) + "," + infoToClient.get(2));
+                    }
+
+                    System.out.println("I've sent weather history");
+                } catch (SQLException e) {
+                    System.out.println("MySQL exception");
+                } catch (ClassNotFoundException e) {
+                    System.out.println("There is no such class");
+                }
+
+
+
             }
 
              }
