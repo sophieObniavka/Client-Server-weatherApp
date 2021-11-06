@@ -88,30 +88,6 @@ public class Controller{
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
-              /*  try {
-                    String []result = in.readLine().split(",");
-                            in.readLine().split(",");
-                    if(result[0].equals("null")){
-                        info.incorrectCityMessage();
-                    }
-                    else {
-                        //System.out.println(result[2]);
-                        if (result[2].contains("Clear")) {
-                            iconClear.setVisible(true);
-                        } else if (result[2].contains("Clouds")) {
-                            iconCloud.setVisible(true);
-                        } else if (result[2].contains("Rain")) {
-                            iconRainy.setVisible(true);
-                        }
-                        temp.setText(temp.getText() + result[0] + "°C");
-                        tysk.setText(tysk.getText() + result[1] + " мм рт. ст.");
-                        day.setText(DaysOfWeek.setDays(0));
-                    }
-
-                    } catch (IOException e) {
-                    e.printStackTrace();
-                }*/
-
 
 
 
