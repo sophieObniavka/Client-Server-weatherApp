@@ -43,6 +43,10 @@ public class WeatherInput {
     Label info;
     Stage window;
 
+ConnectionToServer cnT = new ConnectionToServer();
+
+    public WeatherInput() throws IOException {
+    }
 
     @FXML
     void initialize(){
@@ -72,14 +76,8 @@ public class WeatherInput {
 
         }
     }
-    
-    public java.sql.Date formSQLDate(){
-        LocalDate ld = dateInput.getValue();
-        Calendar c = Calendar.getInstance();
-        c.set(ld.getYear(), ld.getMonthValue() - 1, ld.getDayOfMonth());
-        Date date = c.getTime();
-        return new java.sql.Date(date.getTime());
-    }
+
+
 
     public void turnBackToNow(ActionEvent actionEvent) throws IOException {
         Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/sample.fxml"));
@@ -90,12 +88,13 @@ public class WeatherInput {
         window.show();
     }
 
-    public void addWeather() throws SQLException, ClassNotFoundException {
+    public void addWeather(){
 
         if (writePress.getText() == null || writeTemp.getText().isEmpty() || dateInput.getValue() == null || skySelect.getValue() == null || cityCheck.getValue() == null || writePress.getText() == null || skySelect.getValue() == "Небо" || cityCheck.getValue() == "Місто, область") {
-            save.addWeather(cityCheck.getValue().toString(), Integer.parseInt(writeTemp.getText()), writePress.getText(), formSQLDate(), skySelect.getValue().toString());
+
             inf.weatherAdd();
         } else {
+            cnT.addWeather(cityCheck.getValue().toString(), writeTemp.getText(), writePress.getText(), String.valueOf(dateInput.getValue()),skySelect.getValue().toString());
             inf.succsesfulAdding();
         }
 
