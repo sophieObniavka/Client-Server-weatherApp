@@ -41,6 +41,7 @@ public class WeatherHistory {
     public ImageView iconCloud;
     public ImageView iconRainy;
     public Button search;
+    public ImageView iconSnow;
     Stage window;
 
     ConnectionToServer cnT = new ConnectionToServer();
@@ -102,7 +103,7 @@ public class WeatherHistory {
     }
     public void searchWeatherInfo() throws IOException {
         InfoBox info = new InfoBox();
-        System.out.println(datePick.getValue());
+
 
         if (cityPick.getValue() == null || datePick.getValue() == null ){
             info.weatherAdd();
@@ -115,6 +116,7 @@ public class WeatherHistory {
                 iconClear.setVisible(false);
                 iconRainy.setVisible(false);
                 iconCloud.setVisible(false);
+                iconSnow.setVisible(false);
                 temp.setText("");
                 day.setText("");
                 tysk.setText("");
@@ -127,14 +129,14 @@ public class WeatherHistory {
                 temp.setText(temp.getText() + result().get(0) + "°C");
                 tysk.setText(tysk.getText() + result().get(1) + " мм рт. ст.");
 
-                if(result().get(2).contains("Чисто")){
+                if (result().get(2).contains("Чисто")) {
                     iconClear.setVisible(true);
-                }
-                else if(result().get(2).contains("Хмарно")){
+                } else if (result().get(2).contains("Хмарно")) {
                     iconCloud.setVisible(true);
-                }
-                else if(result().get(2).contains("Дощ")){
+                } else if (result().get(2).contains("Дощ")) {
                     iconRainy.setVisible(true);
+                } else if (result().get(2).contains("Сніг")) {
+                    iconSnow.setVisible(true);
                 }
             }
         }
