@@ -180,6 +180,42 @@
             <image>
                 <Image url="https://i.ibb.co/HXvRM0J/rainyicon-Without-BG.png" />
             </image></ImageView>
+
+        <ImageView fx:id="Snow" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow1" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow2" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow3" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow4" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow5" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow6" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
         <Button fx:id="history" layoutX="701.0" layoutY="91.0" mnemonicParsing="false" onAction="#turnWeatherHistory" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #9999ff;" text="історія погоди" textFill="#fafafa" />
 
 
