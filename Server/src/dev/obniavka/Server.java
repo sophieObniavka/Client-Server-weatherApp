@@ -3,25 +3,31 @@ package dev.obniavka;
 import dev.obniavka.dbconnection.SaveWeatherInfoToDB;
 
 import java.io.*;
+import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Server {
     public final static int PORT = 2411;
+    public static LocalDateTime clientStartedToWork = LocalDateTime.now();
 
     public static void main(String[] a) throws IOException {
+
         ServerSocket s = new ServerSocket(Server.PORT);
         SaveWeatherInfoToDB db = new SaveWeatherInfoToDB();
         String tmp;
 
-    try {
 
 
+
+        System.out.println("Waiting for client...");
         Socket socket = s.accept();
-        System.out.println("Yaay, client is connected");
+        System.out.println("Client is connected");
 
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
         PrintWriter out =
@@ -29,10 +35,13 @@ public class Server {
                         new BufferedWriter(
                                 new OutputStreamWriter(
                                         socket.getOutputStream())), true);
-
+        try {
              while (true) {
-                String scene = in.readLine();
-                System.out.println("Scene is " + scene);
+
+                 String scene = in.readLine();
+                
+
+
 
 
             if(scene.equals("main")) {
@@ -73,12 +82,14 @@ public class Server {
                     infoToClient = db.findInfo(tmp, date);
                     if(infoToClient == null || infoToClient.isEmpty()){
                         out.println("null");
+                        System.out.println("I couldn't find data with selected criterias");
                     }
                     else {
                         out.println(infoToClient.get(0) + "," + infoToClient.get(1) + "," + infoToClient.get(2));
+                        System.out.println("I've sent weather history");
                     }
 
-                    System.out.println("I've sent weather history");
+
                 } catch (SQLException e) {
                     System.out.println("MySQL exception");
                 } catch (ClassNotFoundException e) {
@@ -109,6 +120,7 @@ public class Server {
                 String press = String.valueOf(in.readLine());
                 String date = String.valueOf(in.readLine());
                 String sky = String.valueOf(in.readLine());
+                socket.setSoTimeout(60*1000);
                 try {
                     db.addWeather(oblast,temp,press,date,sky);
                     System.out.println("I've added data in database");
@@ -120,12 +132,13 @@ public class Server {
 
             }
 
-
              }
 
 
 
     } catch (IOException ex) {
+
+            out.println("I'm not working");
         System.out.println("Server is closed");
 
     }
