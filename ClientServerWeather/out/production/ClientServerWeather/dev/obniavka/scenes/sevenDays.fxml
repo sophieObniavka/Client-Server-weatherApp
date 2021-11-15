@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
-<?import javafx.scene.image.ImageView?>
-<?import javafx.scene.layout.Pane?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+        <?import javafx.scene.control.Button?>
+        <?import javafx.scene.control.Label?>
+        <?import javafx.scene.control.TextField?>
+        <?import javafx.scene.image.Image?>
+        <?import javafx.scene.image.ImageView?>
+        <?import javafx.scene.layout.Pane?>
+        <?import javafx.scene.text.Font?>
+        <?import javafx.scene.text.Text?>
 
-<?import javafx.scene.effect.Lighting?>
-<?import javafx.scene.effect.Shadow?>
+        <?import javafx.scene.effect.Lighting?>
+        <?import javafx.scene.effect.Shadow?>
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="831.0" prefWidth="1134.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.obniavka.controllers.ControllerOnSevenDays">
     <children>
         <ImageView fitHeight="831.0" fitWidth="1134.0" layoutX="1.0" layoutY="138.0" pickOnBounds="true" preserveRatio="true">
@@ -55,6 +55,7 @@
                 <Font size="30.0" />
             </font>
         </Label>
+
         <Label fx:id="day4" layoutX="652.0" layoutY="169.0" prefHeight="43.0" prefWidth="149.0" textAlignment="CENTER">
             <font>
                 <Font size="30.0" />
@@ -120,8 +121,6 @@
                 <Image url="https://cdn.pixabay.com/photo/2012/04/18/13/20/sun-37008_960_720.png" />
             </image></ImageView>
 
-
-
         <ImageView fx:id="Clouds" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
                 <Image url="https://i.ibb.co/w0BDnN3/cloudicon-Without-BG.png" />
@@ -152,7 +151,6 @@
                 <Image url="https://i.ibb.co/w0BDnN3/cloudicon-Without-BG.png" />
             </image></ImageView>
 
-
         <ImageView fx:id="Rainy" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
             <image>
                 <Image url="https://i.ibb.co/HXvRM0J/rainyicon-Without-BG.png" />
@@ -182,6 +180,42 @@
             <image>
                 <Image url="https://i.ibb.co/HXvRM0J/rainyicon-Without-BG.png" />
             </image></ImageView>
+
+        <ImageView fx:id="Snow" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow1" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow2" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow3" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow4" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow5" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
+        <ImageView fx:id="Snow6" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
         <Button fx:id="history" layoutX="701.0" layoutY="91.0" mnemonicParsing="false" onAction="#turnWeatherHistory" prefHeight="25.0" prefWidth="113.0" style="-fx-background-color: #9999ff;" text="історія погоди" textFill="#fafafa" />
 
 
@@ -202,4 +236,3 @@
 
     </children>
 </Pane>
-
