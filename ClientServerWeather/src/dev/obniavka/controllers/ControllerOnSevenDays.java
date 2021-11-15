@@ -36,6 +36,7 @@ public class ControllerOnSevenDays {
     public ImageView Clouds, Clouds1, Clouds2, Clouds3, Clouds4, Clouds5, Clouds6;
     public ImageView Rainy, Rainy1, Rainy2, Rainy3, Rainy4, Rainy5, Rainy6;
     public Button sevenDays;
+    public ImageView Snow, Snow1, Snow2, Snow3, Snow4, Snow5, Snow6;
 
     @FXML
     private Text temp;
@@ -188,6 +189,8 @@ public class ControllerOnSevenDays {
                Clouds.setVisible(true);
            } else if (sky.contains("Rain")) {
                Rainy.setVisible(true);
+           } else if (sky.contains("Snow")) {
+               Snow.setVisible(true);
            }
        }
 
@@ -198,6 +201,8 @@ public class ControllerOnSevenDays {
             Clouds1.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy1.setVisible(true);
+        }else if (sky.contains("Snow")) {
+            Snow1.setVisible(true);
         }
     }
 
@@ -208,6 +213,8 @@ public class ControllerOnSevenDays {
             Clouds2.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy2.setVisible(true);
+        } else if (sky.contains("Snow")) {
+            Snow2.setVisible(true);
         }
     }
 
@@ -218,6 +225,8 @@ public class ControllerOnSevenDays {
             Clouds3.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy3.setVisible(true);
+        } else if (sky.contains("Snow")) {
+            Snow3.setVisible(true);
         }
     }
 
@@ -228,6 +237,8 @@ public class ControllerOnSevenDays {
             Clouds4.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy4.setVisible(true);
+        } else if (sky.contains("Snow")) {
+            Snow4.setVisible(true);
         }
     }
 
@@ -238,6 +249,8 @@ public class ControllerOnSevenDays {
             Clouds5.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy5.setVisible(true);
+        }else if (sky.contains("Snow")) {
+            Snow5.setVisible(true);
         }
     }
 
@@ -248,6 +261,8 @@ public class ControllerOnSevenDays {
             Clouds6.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy6.setVisible(true);
+        }else if (sky.contains("Snow")) {
+            Snow6.setVisible(true);
         }
     }
 
