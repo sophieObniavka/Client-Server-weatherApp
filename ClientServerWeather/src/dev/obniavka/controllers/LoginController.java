@@ -2,7 +2,6 @@ package dev.obniavka.controllers;
 
 
 import dev.obniavka.InfoBox;
-import dev.obniavka.dbconnection.SaveWeatherInfoToDB;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,7 +11,7 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 
 import java.io.IOException;
-import java.sql.SQLException;
+
 
 public class LoginController {
     public Button adminBack;
@@ -20,7 +19,10 @@ public class LoginController {
     public TextField login;
     Stage window;
 
-    SaveWeatherInfoToDB save = new SaveWeatherInfoToDB();
+   ConnectionToServer cnT = new ConnectionToServer();
+
+    public LoginController() throws IOException {
+    }
 
 
     //action to turn back to the main stage
@@ -28,20 +30,21 @@ public class LoginController {
         Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/sample.fxml"));
         Scene scene = new Scene(newScene);
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
-
         window.setScene(scene);
         window.show();
 
     }
 
-    public void enterInput(ActionEvent actionEvent) throws IOException, SQLException, ClassNotFoundException {
+    public void enterInput(ActionEvent actionEvent) throws IOException{
 
-        if(save.authorize(login.getText(), pass.getText())) {
+        if(cnT.authorize(login.getText(), pass.getText()).equals("admin")) {
             Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/weatherInput.fxml"));
             Scene scene = new Scene(newScene);
             window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
+
+
         }
         else {
             InfoBox info = new InfoBox();
