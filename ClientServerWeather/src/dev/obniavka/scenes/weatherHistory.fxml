@@ -102,5 +102,10 @@
                 <Image url="https://i.ibb.co/HXvRM0J/rainyicon-Without-BG.png" />
             </image>
         </ImageView>
+        <ImageView fx:id="iconSnow" fitHeight="78.0" fitWidth="90.0" layoutX="113.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" visible="false">
+            <image>
+                <Image url="https://i.ibb.co/tKvnJ41/006643ac68fe18b0df88e9ff21a4b153-removebg-preview.png" />
+            </image></ImageView>
+
     </children>
 </Pane>
