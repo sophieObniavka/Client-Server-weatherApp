@@ -28,6 +28,7 @@ public class Controller{
     public ImageView iconCloud;
     public ImageView iconRainy;
     public Button admin;
+    public ImageView Snow;
     @FXML
     private Label day;
     @FXML
@@ -50,11 +51,7 @@ public class Controller{
 
     ConnectionToServer cT = new ConnectionToServer();
 
-    @FXML void initialize() throws IOException {
-
-        Socket sock = ConnectionToServer.socket;
-
-
+    @FXML void initialize() {
         searchButton.setOnAction(event -> {
 
                 iconClear.setVisible(false);
@@ -69,17 +66,19 @@ public class Controller{
                 tysk.setText("Тиск: ");
                 try {
                    String [] result =  cT.weatherInfo(cityInput.getText()).split(",");
-                    if(result[0].equals("null")){
+
+                   if(result[0].equals("null")){
                         info.incorrectCityMessage();
                     }
                     else {
-                        //System.out.println(result[2]);
                         if (result[2].contains("Clear")) {
                             iconClear.setVisible(true);
                         } else if (result[2].contains("Clouds")) {
                             iconCloud.setVisible(true);
                         } else if (result[2].contains("Rain")) {
                             iconRainy.setVisible(true);
+                        } else if (result[2].contains("Snow")) {
+                            Snow.setVisible(true);
                         }
                         temp.setText(temp.getText() + result[0] + "°C");
                         tysk.setText(tysk.getText() + result[1] + " мм рт. ст.");
@@ -93,6 +92,7 @@ public class Controller{
 
         });
     }
+
 
 
     public void turnSevenDays(ActionEvent actionEvent) throws IOException {
