@@ -22,12 +22,10 @@ import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
-import java.sql.SQLData;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Date;
+
 
 
 public class WeatherHistory {
@@ -60,11 +58,22 @@ public class WeatherHistory {
 
 
     @FXML
-    void initialize() throws IOException {
+    void initialize() {
 
         cityPick.setValue("Місто, область");
         cityPick.setItems(cityList);
 
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        if((cityPick.getValue().equals("Місто, область") && String.valueOf(datePick.getValue()).equals("")) || cityPick.getValue().equals("Місто, область") || String.valueOf(datePick.getValue()).equals("")) {
+                            System.exit(1);
+                        }
+                    }
+                },
+                3600000
+        );
     }
 
 
@@ -103,10 +112,23 @@ public class WeatherHistory {
     }
     public void searchWeatherInfo() throws IOException {
         InfoBox info = new InfoBox();
+        String cityBefore = cityPick.getValue().toString();
+        String dateBefore = datePick.getValue().toString();
 
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        if((cityPick.getValue().equals(cityBefore) && String.valueOf(datePick.getValue()).equals(dateBefore)) || cityPick.getValue().equals(cityBefore) || String.valueOf(datePick.getValue()).equals(dateBefore)) {
+                            System.exit(1);
+                        }
+                    }
+                },
+                3600000
+        );
 
         if (cityPick.getValue() == null || datePick.getValue() == null ){
-            info.weatherAdd();
+            info.notAllCriterias();
         }
         else{
             if(result().get(0).equals("null")){
@@ -149,6 +171,7 @@ public class WeatherHistory {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+        window.setOnCloseRequest(e -> System.exit(1));
     }
 
 
@@ -158,7 +181,7 @@ public class WeatherHistory {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-
+        window.setOnCloseRequest(e -> System.exit(1));
     }
 
     public void turnSevenDays(ActionEvent actionEvent) throws IOException {
@@ -167,6 +190,7 @@ public class WeatherHistory {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+        window.setOnCloseRequest(e -> System.exit(1));
     }
 
 
