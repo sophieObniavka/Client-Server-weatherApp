@@ -1,14 +1,24 @@
 package dev.obniavka;
+import dev.obniavka.controllers.ConnectionToServer;
+
 import javafx.application.Application;
+
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 
 public class Main extends Application {
     Stage windowMain;
     Scene scene1;
+
+ConnectionToServer cT = new ConnectionToServer();
+
+    public Main() throws IOException {
+    }
 
 
     public static void main (String[]args){
@@ -18,22 +28,26 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception{
 
-        windowMain = stage;
+    windowMain = stage;
 
-        Parent root = FXMLLoader.load(getClass().getResource("scenes/sample.fxml"));
-        stage.setHeight(831);
-        stage.setWidth(1134);
-        stage.setResizable(false);
-        scene1 = new Scene(root);
-
-
-        windowMain.setScene(scene1);
-        windowMain.setTitle("Weather");
-        windowMain.show();
+    Parent root = FXMLLoader.load(getClass().getResource("scenes/sample.fxml"));
+    stage.setHeight(831);
+    stage.setWidth(1134);
+    stage.setResizable(false);
 
 
+    scene1 = new Scene(root);
+
+
+    windowMain.setScene(scene1);
+    windowMain.setTitle("Weather");
+
+    windowMain.show();
+    windowMain.setOnCloseRequest(e -> System.exit(1));
 
     }
+
+
 
 
 }
