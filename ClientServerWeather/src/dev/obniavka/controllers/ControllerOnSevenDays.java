@@ -54,8 +54,9 @@ public class ControllerOnSevenDays {
     }
 
     @FXML void initialize(){
+        cnT.closeClientAndServerTimerInitialization(cityInput.getText());
     searchButton.setOnAction(event -> {
-
+        String cityBefore = cityInput.getText();
             clearAll();
 
             day1.setText("");
@@ -96,20 +97,23 @@ public class ControllerOnSevenDays {
             temp1.setText("Температура: ");
 
         try {
+            cnT.closeServerIfClientIsInactive(cityBefore, cityInput.getText());
+
             String[] result =
                     cnT.forecast(cityInput.getText()).split(",");
             if (result[0].equals("null")){
+
                info.incorrectCityMessage();
            }
-
-            temp.setText(temp.getText() + result[0] + "°C");
-            temp1.setText(temp1.getText() + result[3] + "°C");
-           temp2.setText(temp2.getText() + result[6] + "°C");
-            temp3.setText(temp3.getText() + result[9] + "°C");
-            temp4.setText(temp4.getText() + result[12] + "°C");
-            temp5.setText(temp5.getText() + result[15] + "°C");
-            temp6.setText(temp6.getText() + result[18] + "°C");
-
+           else {
+                temp.setText(temp.getText() + result[0] + "°C");
+                temp1.setText(temp1.getText() + result[3] + "°C");
+                temp2.setText(temp2.getText() + result[6] + "°C");
+                temp3.setText(temp3.getText() + result[9] + "°C");
+                temp4.setText(temp4.getText() + result[12] + "°C");
+                temp5.setText(temp5.getText() + result[15] + "°C");
+                temp6.setText(temp6.getText() + result[18] + "°C");
+            }
 
            day1.setText(DaysOfWeek.setDays(0));
             day1.setFont(Font.font(null, FontWeight.BOLD, 28));
