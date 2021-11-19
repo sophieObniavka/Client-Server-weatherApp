@@ -14,4 +14,5 @@ public class InfoBox{
 
     public void noInfo(){ JOptionPane.showMessageDialog(null,"На жаль, немає інформації на обрані Вами критерії"); }
 
+    public void notAllCriterias(){JOptionPane.showMessageDialog(null,"Не всі критерії було обрано");}
 }
