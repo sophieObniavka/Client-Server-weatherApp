@@ -18,7 +18,7 @@ import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 import java.io.*;
-import java.net.Socket;
+
 
 
 
@@ -52,8 +52,12 @@ public class Controller{
     ConnectionToServer cT = new ConnectionToServer();
 
     @FXML void initialize() {
-        searchButton.setOnAction(event -> {
 
+        cT.closeClientAndServerTimerInitialization(cityInput.getText());
+
+
+        searchButton.setOnAction(event -> {
+            String cityBefore = cityInput.getText();
                 iconClear.setVisible(false);
                 iconRainy.setVisible(false);
                 iconCloud.setVisible(false);
@@ -65,9 +69,12 @@ public class Controller{
                 day.setStyle("-fx-font-size: 28px;");
                 tysk.setText("Тиск: ");
                 try {
+                    cT.closeServerIfClientIsInactive(cityBefore, cityInput.getText());
+
                    String [] result =  cT.weatherInfo(cityInput.getText()).split(",");
 
-                   if(result[0].equals("null")){
+                    if(result[0].equals("null")){
+
                         info.incorrectCityMessage();
                     }
                     else {
@@ -102,6 +109,8 @@ public class Controller{
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+        window.setOnCloseRequest(e -> System.exit(1));
+
     }
     public void turnWeatherHistory(ActionEvent actionEvent) throws IOException {
         Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/weatherHistory.fxml"));
@@ -109,14 +118,16 @@ public class Controller{
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+        window.setOnCloseRequest(e -> System.exit(1));
+
     }
     public  void authorizeScene(ActionEvent actionEvent) throws IOException{
         Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/login.fxml"));
         Scene scene = new Scene(newScene);
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
-
         window.show();
+        window.setOnCloseRequest(e -> System.exit(1));
     }
 
 
