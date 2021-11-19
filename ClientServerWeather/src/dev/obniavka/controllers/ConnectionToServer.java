@@ -12,6 +12,7 @@ public class ConnectionToServer {
     static {
         try {
             socket = new Socket("localhost", 2411);
+
         } catch (IOException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null,"Немає з'єднання з сервером!");
@@ -32,9 +33,13 @@ public class ConnectionToServer {
     }
 
     public String weatherInfo (String city) throws IOException {
+
+
         out.println("main");
         out.println(city);
         return String.valueOf(in.readLine());
+
+
     }
 
     public String forecast(String city) throws IOException{
@@ -69,5 +74,33 @@ public class ConnectionToServer {
         out.println(pressure);
         out.println(date);
         out.println(sky);
+    }
+
+    void closeClientAndServerTimerInitialization(String city){
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        if(city.equals("")) {
+                            System.exit(1);
+                        }
+                    }
+                },
+                3600000
+        );
+    }
+
+    void closeServerIfClientIsInactive(String cityBefore,String city){
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        if(city.equals(cityBefore)) {
+                            System.exit(1);
+                        }
+                    }
+                },
+                3600000
+        );
     }
 }
