@@ -3,6 +3,7 @@ package dev.obniavka.controllers;
 
 import dev.obniavka.InfoBox;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
@@ -24,7 +25,20 @@ public class LoginController {
     public LoginController() throws IOException {
     }
 
-
+    @FXML
+    void initialize() {
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        if((pass.getText().isEmpty() && login.getText().isEmpty()) || pass.getText().isEmpty() || login.getText().isEmpty()) {
+                            System.exit(1);
+                        }
+                    }
+                },
+                3600000
+        );
+    }
     //action to turn back to the main stage
     public void turnBackToNow(ActionEvent actionEvent) throws IOException {
         Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/sample.fxml"));
@@ -32,6 +46,7 @@ public class LoginController {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+        window.setOnCloseRequest(e -> System.exit(1));
 
     }
 
@@ -43,7 +58,7 @@ public class LoginController {
             window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
-
+            window.setOnCloseRequest(e -> System.exit(1));
 
         }
         else {
