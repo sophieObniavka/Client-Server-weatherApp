@@ -3,18 +3,16 @@ package dev.obniavka;
 import dev.obniavka.dbconnection.SaveWeatherInfoToDB;
 
 import java.io.*;
-import java.net.InetAddress;
 import java.net.ServerSocket;
 import java.net.Socket;
 
 import java.sql.SQLException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 public class Server {
     public final static int PORT = 2411;
-    public static LocalDateTime clientStartedToWork = LocalDateTime.now();
+
 
     public static void main(String[] a) throws IOException {
 
@@ -27,6 +25,7 @@ public class Server {
 
         System.out.println("Waiting for client...");
         Socket socket = s.accept();
+
         System.out.println("Client is connected");
 
         BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
@@ -36,17 +35,19 @@ public class Server {
                                 new OutputStreamWriter(
                                         socket.getOutputStream())), true);
         try {
+
              while (true) {
 
-                 String scene = in.readLine();
-                
-
-
+                String scene = in.readLine();
 
 
             if(scene.equals("main")) {
+
+
                 System.out.println("Client needs weather for today");
                      tmp = in.readLine();
+
+
                      ArrayList<String> result = Weather.findForecast(tmp);
                      if (result == null) {
                          out.println("null");
@@ -137,8 +138,6 @@ public class Server {
 
 
     } catch (IOException ex) {
-
-            out.println("I'm not working");
         System.out.println("Server is closed");
 
     }
