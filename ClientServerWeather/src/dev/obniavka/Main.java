@@ -1,5 +1,4 @@
 package dev.obniavka;
-import dev.obniavka.controllers.ConnectionToServer;
 
 import javafx.application.Application;
 
@@ -8,17 +7,11 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 
 
 public class Main extends Application {
     Stage windowMain;
     Scene scene1;
-
-ConnectionToServer cT = new ConnectionToServer();
-
-    public Main() throws IOException {
-    }
 
 
     public static void main (String[]args){
@@ -43,7 +36,9 @@ ConnectionToServer cT = new ConnectionToServer();
     windowMain.setTitle("Weather");
 
     windowMain.show();
-    windowMain.setOnCloseRequest(e -> System.exit(1));
+        windowMain.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
 
     }
 
