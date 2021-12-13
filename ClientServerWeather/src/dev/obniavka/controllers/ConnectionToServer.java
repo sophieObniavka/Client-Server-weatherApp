@@ -82,7 +82,7 @@ public class ConnectionToServer {
                     @Override
                     public void run() {
                         if(city.equals("")) {
-                            System.exit(1);
+                                javafx.application.Platform.exit();
                         }
                     }
                 },
@@ -96,7 +96,7 @@ public class ConnectionToServer {
                     @Override
                     public void run() {
                         if(city.equals(cityBefore)) {
-                            System.exit(1);
+                            javafx.application.Platform.exit();
                         }
                     }
                 },

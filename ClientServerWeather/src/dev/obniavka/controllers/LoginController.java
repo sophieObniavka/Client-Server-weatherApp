@@ -32,7 +32,7 @@ public class LoginController {
                     @Override
                     public void run() {
                         if((pass.getText().isEmpty() && login.getText().isEmpty()) || pass.getText().isEmpty() || login.getText().isEmpty()) {
-                            System.exit(1);
+                                javafx.application.Platform.exit();
                         }
                     }
                 },
@@ -46,7 +46,9 @@ public class LoginController {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-        window.setOnCloseRequest(e -> System.exit(1));
+        window.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
 
     }
 
@@ -58,7 +60,9 @@ public class LoginController {
             window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
-            window.setOnCloseRequest(e -> System.exit(1));
+            window.setOnCloseRequest(event ->{
+                javafx.application.Platform.exit();
+            });
 
         }
         else {

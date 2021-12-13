@@ -112,22 +112,8 @@ public class WeatherHistory {
     }
     public void searchWeatherInfo() throws IOException {
         InfoBox info = new InfoBox();
-        String cityBefore = cityPick.getValue().toString();
-        String dateBefore = datePick.getValue().toString();
 
-        new java.util.Timer().schedule(
-                new java.util.TimerTask() {
-                    @Override
-                    public void run() {
-                        if((cityPick.getValue().equals(cityBefore) && String.valueOf(datePick.getValue()).equals(dateBefore)) || cityPick.getValue().equals(cityBefore) || String.valueOf(datePick.getValue()).equals(dateBefore)) {
-                            System.exit(1);
-                        }
-                    }
-                },
-                3600000
-        );
-
-        if (cityPick.getValue() == null || datePick.getValue() == null ){
+        if (cityPick.getValue().toString().equals("Місто, область")){
             info.notAllCriterias();
         }
         else{
@@ -151,7 +137,7 @@ public class WeatherHistory {
                 temp.setText(temp.getText() + result().get(0) + "°C");
                 tysk.setText(tysk.getText() + result().get(1) + " мм рт. ст.");
 
-                if (result().get(2).contains("Чисто")) {
+                if (result().get(2).contains("Чисте")) {
                     iconClear.setVisible(true);
                 } else if (result().get(2).contains("Хмарно")) {
                     iconCloud.setVisible(true);
@@ -162,6 +148,21 @@ public class WeatherHistory {
                 }
             }
         }
+
+        String cityBefore = cityPick.getValue().toString();
+        String dateBefore = datePick.getValue().toString();
+
+        new java.util.Timer().schedule(
+                new java.util.TimerTask() {
+                    @Override
+                    public void run() {
+                        if((cityPick.getValue().equals(cityBefore) && String.valueOf(datePick.getValue()).equals(dateBefore)) || cityPick.getValue().equals(cityBefore) || String.valueOf(datePick.getValue()).equals(dateBefore)) {
+                            System.exit(1);
+                        }
+                    }
+                },
+                3600000
+        );
     }
 
 
@@ -171,7 +172,9 @@ public class WeatherHistory {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-        window.setOnCloseRequest(e -> System.exit(1));
+        window.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
     }
 
 
@@ -181,7 +184,9 @@ public class WeatherHistory {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-        window.setOnCloseRequest(e -> System.exit(1));
+        window.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
     }
 
     public void turnSevenDays(ActionEvent actionEvent) throws IOException {
@@ -190,7 +195,9 @@ public class WeatherHistory {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-        window.setOnCloseRequest(e -> System.exit(1));
+        window.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
     }
 
 

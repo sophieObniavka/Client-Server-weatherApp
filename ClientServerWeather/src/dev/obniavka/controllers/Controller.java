@@ -61,6 +61,7 @@ public class Controller{
                 iconClear.setVisible(false);
                 iconRainy.setVisible(false);
                 iconCloud.setVisible(false);
+                Snow.setVisible(false);
                 temp.setText("");
                 day.setText("");
                 tysk.setText("");
@@ -109,7 +110,9 @@ public class Controller{
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-        window.setOnCloseRequest(e -> System.exit(1));
+        window.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
 
     }
     public void turnWeatherHistory(ActionEvent actionEvent) throws IOException {
@@ -118,8 +121,9 @@ public class Controller{
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-        window.setOnCloseRequest(e -> System.exit(1));
-
+        window.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
     }
     public  void authorizeScene(ActionEvent actionEvent) throws IOException{
         Parent newScene = FXMLLoader.load(getClass().getResource("/dev/obniavka/scenes/login.fxml"));
@@ -127,7 +131,9 @@ public class Controller{
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
-        window.setOnCloseRequest(e -> System.exit(1));
+        window.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
     }
 
 

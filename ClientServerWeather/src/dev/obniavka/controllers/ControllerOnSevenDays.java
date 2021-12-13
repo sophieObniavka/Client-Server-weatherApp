@@ -145,7 +145,7 @@ public class ControllerOnSevenDays {
             tysk5.setText(tysk5.getText() + result[16] + " мм рт. ст.");
             tysk6.setText(tysk6.getText() + result[19]+ " мм рт. ст.");
 
-          setFirstPicture(result[2]);
+            setFirstPicture(result[2]);
             setSecondsPicture(result[5]);
             setThirdPicture(result[8]);
             setFourthPicture(result[11]);
@@ -183,6 +183,13 @@ public class ControllerOnSevenDays {
         Rainy4.setVisible(false);
         Rainy5.setVisible(false);
         Rainy6.setVisible(false);
+        Snow.setVisible(false);
+        Snow1.setVisible(false);
+        Snow2.setVisible(false);
+        Snow3.setVisible(false);
+        Snow4.setVisible(false);
+        Snow5.setVisible(false);
+        Snow6.setVisible(false);
     }
 // setting each picture
 
@@ -193,7 +200,7 @@ public class ControllerOnSevenDays {
                Clouds.setVisible(true);
            } else if (sky.contains("Rain")) {
                Rainy.setVisible(true);
-           } else if (sky.contains("Snow")) {
+           } else if (sky.equals("Snow")) {
                Snow.setVisible(true);
            }
        }
@@ -205,7 +212,7 @@ public class ControllerOnSevenDays {
             Clouds1.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy1.setVisible(true);
-        }else if (sky.contains("Snow")) {
+        }else if (sky.equals("Snow")) {
             Snow1.setVisible(true);
         }
     }
@@ -217,7 +224,7 @@ public class ControllerOnSevenDays {
             Clouds2.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy2.setVisible(true);
-        } else if (sky.contains("Snow")) {
+        } else if (sky.equals("Snow")) {
             Snow2.setVisible(true);
         }
     }
@@ -229,7 +236,7 @@ public class ControllerOnSevenDays {
             Clouds3.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy3.setVisible(true);
-        } else if (sky.contains("Snow")) {
+        } else if (sky.equals("Snow")) {
             Snow3.setVisible(true);
         }
     }
@@ -241,7 +248,7 @@ public class ControllerOnSevenDays {
             Clouds4.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy4.setVisible(true);
-        } else if (sky.contains("Snow")) {
+        } else if (sky.equals("Snow")) {
             Snow4.setVisible(true);
         }
     }
@@ -253,7 +260,7 @@ public class ControllerOnSevenDays {
             Clouds5.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy5.setVisible(true);
-        }else if (sky.contains("Snow")) {
+        }else if (sky.equals("Snow")) {
             Snow5.setVisible(true);
         }
     }
@@ -265,7 +272,7 @@ public class ControllerOnSevenDays {
             Clouds6.setVisible(true);
         } else if (sky.contains("Rain")) {
             Rainy6.setVisible(true);
-        }else if (sky.contains("Snow")) {
+        }else if (sky.equals("Snow")) {
             Snow6.setVisible(true);
         }
     }
@@ -278,6 +285,9 @@ public class ControllerOnSevenDays {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+        window.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
 
     }
 
@@ -288,6 +298,9 @@ public class ControllerOnSevenDays {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+        window.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
     }
 
     //action on button that sets weather history scene
@@ -297,6 +310,9 @@ public class ControllerOnSevenDays {
         window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
         window.setScene(scene);
         window.show();
+        window.setOnCloseRequest(event ->{
+            javafx.application.Platform.exit();
+        });
     }
 
 }

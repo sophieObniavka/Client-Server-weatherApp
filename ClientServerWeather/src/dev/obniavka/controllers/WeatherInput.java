@@ -99,11 +99,11 @@ ConnectionToServer cnT = new ConnectionToServer();
 
                                 }
                             },
-                            2000000
+                            10000
                     );
 
                 }
-            }, 2100000,2100000);
+            }, 15000,15000);
 
 
         }
@@ -187,11 +187,11 @@ ConnectionToServer cnT = new ConnectionToServer();
 
                                 }
                             },
-                            2000000
+                            10000
                     );
 
                 }
-            }, 2100000,2100000);
+            }, 15000,15000);
 
         }
         public void turnBackToLogin (ActionEvent actionEvent) throws IOException {
@@ -201,7 +201,9 @@ ConnectionToServer cnT = new ConnectionToServer();
             window = (Stage) ((Node) actionEvent.getSource()).getScene().getWindow();
             window.setScene(scene);
             window.show();
-            window.setOnCloseRequest(e -> System.exit(1));
+            window.setOnCloseRequest(event ->{
+                javafx.application.Platform.exit();
+            });
         }
 
         public void continueSession () {
@@ -250,11 +252,11 @@ ConnectionToServer cnT = new ConnectionToServer();
 
                                 }
                             },
-                            2000000
+                            10000
                     );
 
                 }
-            }, 2100000,2100000);
+            }, 15000,15000);
         }
 
 }
